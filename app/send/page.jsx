@@ -30,7 +30,7 @@ export default function sendFilePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploadStatus("Uploading...");
-    const chunkSize = 1024 * 1024; // 1MB
+    const chunkSize = 1024 * 1024 * 5; // 5 MB
     const totalChunks = Math.ceil(file.size / chunkSize);
     const chunkProgress = 100 / totalChunks;
     let chunkNumber = 0;
