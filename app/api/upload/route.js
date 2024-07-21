@@ -15,7 +15,7 @@ const mergeChunks = async (fileName, totalChunks, mergedTime) => {
   const maxRetries = 5;
 
   if (!fs.existsSync(mergedFilePath)) {
-    fs.mkdirSync(mergedFilePath, { recursive: true });
+    await fs.promises.mkdir(mergedFilePath, { recursive: true });
   }
 
   let startChunk = 0;
@@ -69,7 +69,7 @@ const mergeChunks = async (fileName, totalChunks, mergedTime) => {
 
 export const POST = async (req, res) => {
   const formData = await req.formData();
-  const uploadsPath = path.join(desktopPath, "uploads"); // Change this line
+  const uploadsPath = path.join(desktopPath, "uploads");
   const chunkDir = path.join(process.cwd(), "chunks");
   const chunk = formData.get("file");
   const originalName = formData.get("filename");
@@ -78,11 +78,11 @@ export const POST = async (req, res) => {
   const chunkFilePath = `${chunkDir}/${originalName}.part_${chunkNumber}`;
 
   if (!fs.existsSync(uploadsPath)) {
-    fs.mkdirSync(uploadsPath);
+    await fs.promises.mkdir(uploadsPath, { recursive: true });
   }
 
   if (!fs.existsSync(chunkDir)) {
-    fs.mkdirSync(chunkDir);
+    await fs.promises.mkdir(chunkDir, { recursive: true });
   }
 
   const file = formData.get("file");
