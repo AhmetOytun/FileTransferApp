@@ -10,13 +10,11 @@ export default function sendFilePage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [port, setPort] = useState(null);
   const [ip, setIp] = useState(null);
-  const [isFileSelected, setIsFileSelected] = useState(false);
   const [uploadStatus, setUploadStatus] = useState("Upload");
   const router = useRouter();
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-    setIsFileSelected(true);
   };
 
   const handleIpChange = (e) => {
@@ -69,7 +67,6 @@ export default function sendFilePage() {
         setTimeout(() => {
           setSuccessMessage("");
           setUploadProgress(0);
-          setIsFileSelected(false);
           setUploadStatus("Upload");
         }, 3000);
       }
@@ -87,7 +84,7 @@ export default function sendFilePage() {
       </button>
       <form onSubmit={handleSubmit} className="flex flex-col w-[15rem]">
         <label className="bg-blue-500 my-5 text-white text-center rounded-md cursor-pointer text-nowrap overflow-hidden">
-          {isFileSelected ? file.name : "Select File"}
+          {file ? file.name : "Select File"}
           <input
             type="file"
             onChange={handleFileChange}
